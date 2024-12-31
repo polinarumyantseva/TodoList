@@ -1,43 +1,31 @@
-import { useState } from 'react';
+import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import styles from './app.module.css';
-import { SimpleTodoList, FirebaseTodoList, JsonServerTodoList } from './components';
+import { SimpleTodoList, FirebaseTodoList, JsonServerTodoList, TodoItem, NotFound } from './components';
 
 export const App = () => {
-	const [listNameToShow, setListNameToShow] = useState('simple');
-
 	return (
 		<div className={styles.app}>
 			<div className={styles['buttons-container']}>
-				<button
-					type="button"
-					className={styles['secondary-button']}
-					onClick={() => setListNameToShow('simple')}
-				>
-					JSON Placeholder
-				</button>
-				<button
-					type="button"
-					className={styles['secondary-button']}
-					onClick={() => setListNameToShow('jsonServer')}
-				>
+				<NavLink to="/" className={styles['secondary-button']}>
 					JSON Server
-				</button>
-				<button
-					type="button"
-					className={styles['secondary-button']}
-					onClick={() => setListNameToShow('firebase')}
-				>
+				</NavLink>
+				<NavLink to="/simple" className={styles['secondary-button']}>
+					JSON Placeholder
+				</NavLink>
+				<NavLink to="/firebase" className={styles['secondary-button']}>
 					Firebase
-				</button>
+				</NavLink>
 			</div>
 
-			{listNameToShow === 'simple' ? (
-				<SimpleTodoList />
-			) : listNameToShow === 'jsonServer' ? (
-				<JsonServerTodoList />
-			) : (
-				<FirebaseTodoList />
-			)}
+			<Routes>
+				<Route path="/" element={<JsonServerTodoList />}>
+					<Route path="task/:id" element={<TodoItem />} />
+				</Route>
+				<Route path="/simple" element={<SimpleTodoList />} />
+				<Route path="/firebase" element={<FirebaseTodoList />} />
+				<Route path="/404" element={<NotFound />} />
+				<Route path="*" element={<Navigate to="/404" />} />
+			</Routes>
 		</div>
 	);
 };
