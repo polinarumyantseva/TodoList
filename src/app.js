@@ -1,6 +1,6 @@
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import styles from './app.module.css';
-import { SimpleTodoList, FirebaseTodoList, JsonServerTodoList, TodoItem, NotFound } from './components';
+import { SimpleTodoList, FirebaseTodoList, JsonServerTodoList, TodoPage, NotFound } from './components';
 
 export const App = () => {
 	return (
@@ -19,7 +19,7 @@ export const App = () => {
 
 			<Routes>
 				<Route path="/" element={<JsonServerTodoList />}>
-					<Route path="task/:id" element={<TodoItem />} />
+					<Route path="task/:id" element={<TodoPage />} />
 				</Route>
 				<Route path="/simple" element={<SimpleTodoList />} />
 				<Route path="/firebase" element={<FirebaseTodoList />} />

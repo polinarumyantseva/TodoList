@@ -4,7 +4,7 @@ import styles from '../JsonServerTodoList/jsonServer.module.css';
 import { TaskNotFound } from '../NotFound/TaskNotFound';
 import { useRequestUpdateTodoList, useRequestDeleteTodoItem } from '../../hooks';
 
-export const TodoItem = () => {
+export const TodoPage = () => {
 	const [task, setTask] = useState({});
 	const params = useParams();
 	const navigate = useNavigate();
@@ -19,7 +19,7 @@ export const TodoItem = () => {
 			.then((loadedTodoTask) => {
 				setTask(loadedTodoTask);
 			});
-	}, [isUpdating]);
+	}, [isUpdating, params]);
 
 	if (Object.keys(task).length === 0) {
 		return <TaskNotFound />;
